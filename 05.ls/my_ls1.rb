@@ -6,22 +6,20 @@ def current_empty?
   Dir.empty?(Dir.foreach)
 end
 
-# 表示列数(COLUMN_COUNT)を指定
+# 表示列数を指定
 COLUMN_COUNT = 3
 
-# 要素数が3未満の場合、不足分をnilで埋めた配列を取得
-class Length
-  attr_accessor :padding_files, values_files
-    def initialize(padding_files, values_files)
-      @padding_files = padding_files
-      @values_files = values_files
-    end
+class Files
+  attr_accessor :padding_files, :values_files
+
+  def initialize(padding_files, values_files)
+    @padding_files = padding_files
+    @values_files = values_files
   end
 
   def fileslist
-    files = Dir.glob('*').sort { |a, b| a.to_i <=> b.to_i }
-    max_column = files.max { |a, b| a.length <=> b.length }
-    max_length = max_column.length
+    files = Dir.glob('*').sort_by { |a, b| a.to_i <=> b.to_i }
+    max_column = files.max_by { |a, b| a.length <=> b.length }
 
     files.each do |f|
       max_length = max_column.length
@@ -40,4 +38,3 @@ class Length
     end
   end
 end
-fileslist
