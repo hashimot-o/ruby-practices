@@ -5,14 +5,13 @@
 COLUMN_COUNT = 3
 
 def fileslist
-  files = Dir.glob('*').sort { |a, b| a <=> b }
+  files = Dir.glob('*').sort
   max_column = files.max_by(&:length)
 
-  padding_files = []
-  files.each do |f|
-    max_length = max_column.length
-    padding_files << f.ljust(max_length, ' ')
-  end
+  padding_files = files.map { |f|
+  max_length = max_column.length
+  f.ljust(max_length, ' ')
+}
   padding_files
 end
 
