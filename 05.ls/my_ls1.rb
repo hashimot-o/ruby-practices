@@ -16,11 +16,13 @@ def fileslist
 end
 
 def slice_list(padding_files)
-  sliced_files = padding_files.each_slice(COLUMN_COUNT).to_a
+  files = Dir.glob('*').sort
+  total_file = files.size
+  rows = ((total_file / COLUMN_COUNT)+1).ceil
+  sliced_files = padding_files.each_slice(rows)
   values_files = sliced_files.map do |a|
-    a.values_at(0...COLUMN_COUNT)
+    a.values_at(0...rows)
   end
-
   values_files.transpose.each do |f|
     puts "#{f.join('     ')}\n"
   end
