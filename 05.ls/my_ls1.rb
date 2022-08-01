@@ -3,22 +3,23 @@
 
 # 表示列数を指定
 COLUMN_COUNT = 3
+def files
+  Dir.glob('*').sort
+end
 
-def fileslist
-  files = Dir.glob('*').sort
+files
+
+def file_names_with_padding
   max_column = files.max_by(&:length)
-
-  padding_files = files.map { |f|
-  max_length = max_column.length
-  f.ljust(max_length, ' ')
-}
-  padding_files
+  files.map do |f|
+    max_length = max_column.length
+    f.ljust(max_length, ' ')
+  end
 end
 
 def slice_list(padding_files)
-  files = Dir.glob('*').sort
   total_file = files.size
-  rows = ((total_file / COLUMN_COUNT)+1).ceil
+  rows = ((total_file / COLUMN_COUNT) + 1).ceil
   sliced_files = padding_files.each_slice(rows)
   values_files = sliced_files.map do |a|
     a.values_at(0...rows)
@@ -27,5 +28,5 @@ def slice_list(padding_files)
     puts "#{f.join('     ')}\n"
   end
 end
-padding_files = fileslist
+padding_files = file_names_with_padding
 slice_list(padding_files)
