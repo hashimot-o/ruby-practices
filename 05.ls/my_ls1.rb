@@ -7,8 +7,6 @@ def files
   Dir.glob('*').sort
 end
 
-files
-
 def file_names_with_padding
   max_column = files.max_by(&:length)
   files.map do |f|
